@@ -8,7 +8,12 @@ const server = http.createServer((req, res) => {
   res.end('<h1>Hello World</h1>');
 });
 
-var io = require('socket.io')(server);
+//var io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
 //za random ime korisnika koji se konektovao na socket
 const genUsername = require("unique-username-generator");
 //generisanje username za  korisnika koji se konektovao na socket
