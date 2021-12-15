@@ -13,6 +13,7 @@ var io = require('socket.io')(server);
 const genUsername = require("unique-username-generator");
 //generisanje username za  korisnika koji se konektovao na socket
 var user;
+var messages=[];
 
 
 io.use((socket, next) => {
@@ -60,6 +61,19 @@ io.on('connection', (socket) => {
 
   socket.on('join-private', (msg) => {
     socket.to(msg.to).emit("join-private-mess", msg.from);
+  });
+
+  socket.on("open-global", ({ username, id, privateUser }) => {
+
+
+    socket.emit("history-messages", {username:username,id:id, messages:messages});
+ 
+    
+    //obavijet za privatni chat
+    if( privateUser!=null){
+    socket.to(privateUser.userID).emit("left-private-mess", privateUser.username);
+    }
+
   });
 
   socket.on("disconnect", () => {
