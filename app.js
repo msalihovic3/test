@@ -40,6 +40,31 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("users", users);
   });
 
+  socket.on('typing', (msg) => {
+    if(msg.id===""){
+      socket.broadcast.emit('typing-message', msg.username);
+    }else{ 
+      //ako je privatna poruka poslan je id kom socketu treba da se proslijedi
+      socket.to(msg.id).emit("typing-message", msg.username);
+    }
+  });
+
+  socket.on('private', (msg) => {
+    socket.broadcast.emit('open-private', msg);
+  });
+
+  socket.on('message-private', (msg) => {
+    socket.to(msg.userTo).emit("message-broadcast", msg);
+  });
+
+  socket.on('join-private', (msg) => {
+    socket.to(msg.to).emit("join-private-mess", msg.from);
+  });
+
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("disconnesctUser", {username:socket.username, connected:socket.connected});
+  });
+
 });
 
 server.listen(port,() => {
