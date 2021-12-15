@@ -1,6 +1,7 @@
 
 const http = require('http');
 const port = process.env.PORT || 3000
+var mysql = require('mysql');
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -13,6 +14,19 @@ var io = require('socket.io')(server);
 const genUsername = require("unique-username-generator");
 //generisanje username za  korisnika koji se konektovao na socket
 var user;
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database:"chat_db"
+});
+
+con.connect(function(err) {
+  if (err) {console.log("Error");}
+  else console.log("Connected!");
+  
+});
 
 io.use((socket, next) => {
   socket.username = genUsername.generateUsername("-", 0, 10);
