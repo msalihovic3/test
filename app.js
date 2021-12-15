@@ -19,11 +19,11 @@ io.use((socket, next) => {
   user= {username:socket.username,id:socket.id};
   next();   
 });
-*/
+
 
 io.on('connection', (socket) => {
 
-});
+});*/
 
 server.listen(port,() => {
   console.log(`Server running at port `+port);
