@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
   //slanje konektovanom korisniku ime i konektovane korisnike prvi put
   socket.emit("name", user);
   socket.emit("users", users);
+  socket.emit("history-messages", {username:"",id:"", messages:messages});
   
   socket.on('chat-users', (msg) => {
     socket.broadcast.emit("users", users);
