@@ -42,16 +42,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("users", users);
   });
 
-  socket.on('message', (msg) => {
-
-    socket.broadcast.emit('message-broadcast', msg);
-    messages.push({user:msg.username,text:msg.message})
-   /* let sql = "INSERT INTO chatdbTable (user, text) VALUES (?, ?)"
-    con.query(sql,[ msg.username, msg.message ], function (err, result) {
-      if (err) console.log("Error");
-      else console.log("1 record inserted");
-    }); */
-  });
+  
 
   socket.on('typing', (msg) => {
     if(msg.id===""){
@@ -74,21 +65,6 @@ io.on('connection', (socket) => {
     socket.to(msg.to).emit("join-private-mess", msg.from);
   });
 
-  socket.on("open-global", ({ username, id, privateUser }) => {
-
-    /*con.query("SELECT user,text FROM chatdbTable", function (err, result, fields) {
-      if (err) console.log("Error");
-      else socket.emit("history-messages", {username:username,id:id, messages:result});
-    });  */ 
-
-    socket.emit("history-messages", {username:username,id:id, messages:messages});
-    
-    //obavijet za privatni chat
-    if( privateUser!=null){
-    socket.to(privateUser.userID).emit("left-private-mess", privateUser.username);
-    }
-
-  });
   socket.on("disconnect", () => {
     socket.broadcast.emit("disconnesctUser", {username:socket.username, connected:socket.connected});
   });
