@@ -8,5 +8,9 @@
     "start": "node app.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.4.0",
+    "unique-username-generator": "^1.0.1"
+  }
 }
