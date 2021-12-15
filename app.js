@@ -14,14 +14,31 @@ const genUsername = require("unique-username-generator");
 //generisanje username za  korisnika koji se konektovao na socket
 var user;
 
-/*io.use((socket, next) => {
+io.use((socket, next) => {
   socket.username = genUsername.generateUsername("-", 0, 10);
   user= {username:socket.username,id:socket.id};
   next();   
 });
-*/
+
 
 io.on('connection', (socket) => {
+
+  const users = [];
+  for (let [id, socket] of io.of("/").sockets) {
+      users.push({
+      userID: id,
+      username: socket.username,
+      connected:socket.connected
+      });
+  }
+  
+  //slanje konektovanom korisniku ime i konektovane korisnike prvi put
+  socket.emit("name", user);
+  socket.emit("users", users);
+  
+  socket.on('chat-users', (msg) => {
+    socket.broadcast.emit("users", users);
+  });
 
 });
 
