@@ -42,6 +42,12 @@ io.on('connection', (socket) => {
     socket.broadcast.emit("users", users);
   });
 
+  socket.on('message', (msg) => {
+
+    socket.broadcast.emit('message-broadcast', msg);
+    messages.push({user:msg.username,text:msg.message})
+  });
+
   socket.on('typing', (msg) => {
     if(msg.id===""){
       socket.broadcast.emit('typing-message', msg.username);
