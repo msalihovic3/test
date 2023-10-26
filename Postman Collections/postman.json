@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "66e06b40-29d5-4c58-afdc-f711f9e45d73",
+		"name": "ETF-WEBPORTAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test",
+			"id": "630426cd-6316-4efb-b208-8035c64af0f0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"grant_type\": \"password\",\n    \"client_id\": \"LU2mY8tfmPun2C4CmW0FbH1dAEJOvPr7XexgClQv\",\n    \"client_secret\": \"fdmB2Cq0hGTiMG3xor9KzHQUGJfcfg5w5A04XoVR1ki2fUDyRR4cCcdOyFSHPW238mE4YTtX5vwCuor5VkSxRfS9VD2htDsXLCpLVyH6iJHKmVEjcZoMAoB25tWT8xy1\",\n    \"username\": \"admin@gmail.com\",\n    \"password\": \"Enver001!\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://0.0.0.0:8003/auth/token/"
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"id": "52fd5716-dccd-4930-9d72-3024dbbd2c4a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
